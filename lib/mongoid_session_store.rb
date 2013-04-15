@@ -9,7 +9,7 @@ module MongoidSessionStore
           
     initializer "setup mongoid session store" do |app|
       require 'mongoid_session_store/mongoid_store'
-      app.config.session_store :mongoid_store
+      app.config.session_store :mongoid_store, app.config.session_options
     end  
   end
   
