@@ -10,6 +10,8 @@ module ActionDispatch
         identity :type => String
 
         field :data, :type => String, :default => [Marshal.dump({})].pack("m*")
+
+        field :updated_at, :type => DateTime
       end
 
       # The class used for session storage.
@@ -31,6 +33,7 @@ module ActionDispatch
         def set_session(env, sid, session_data, options = nil)
           record = get_session_model(env, sid)
           record.data = pack(session_data)
+          record.updated_at = Time.now.utc
 
           # Rack spec dictates that set_session should return true or false
           # depending on whether or not the session was saved or not.

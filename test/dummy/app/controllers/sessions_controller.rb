@@ -17,6 +17,10 @@ class SessionsController < ApplicationController
     render :text => "#{request.session_options[:id]}"
   end
 
+  def get_session_updated_at
+    render :text =>  Mongoid::master.collection('sessions').find({'_id' => request.session_options[:id]}).limit(1).first['updated_at'].to_i.to_s
+  end
+
   def call_reset_session
     session[:foo]
     reset_session

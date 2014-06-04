@@ -4,6 +4,23 @@ class MongoidSessionStoreTest < ActionDispatch::IntegrationTest
   setup do
     ActionDispatch::Session::MongoidStore::Session.destroy_all
   end
+
+  test "sessions have an updated at" do
+    get 'set_session_value'
+    get 'get_session_updated_at'
+    assert response.body.to_i > 0
+  end
+
+  test "sessions update their updated at" do
+    get 'set_session_value'
+    get 'get_session_updated_at'
+    assert response.body.to_i > 0
+    old_updated_at = response.body.to_i
+    Timecop.travel 10.seconds.from_now
+    get 'set_session_value'
+    get 'get_session_updated_at'
+    assert response.body.to_i > old_updated_at
+  end
         
   test "getting nil session value" do
     get '/get_session_value'
