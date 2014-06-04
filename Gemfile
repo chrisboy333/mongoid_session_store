@@ -1,4 +1,4 @@
-source "http://rubygems.org"
+source 'https://rubygems.org'
 
 gem 'rails', '3.2.17'
 gem "rake", "~> 0.9.2.2"
@@ -10,5 +10,5 @@ gem "pry-rails"
 gem "timecop"
 
 if RUBY_VERSION < '1.9'
-  gem "ruby-debug", ">= 0.10.3"
+  gem 'ruby-debug', '>= 0.10.3'
 end

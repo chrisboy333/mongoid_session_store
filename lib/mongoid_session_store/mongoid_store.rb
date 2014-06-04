@@ -41,8 +41,11 @@ module ActionDispatch
           record.save ? sid : false
         end
 
+        # this gets called a lot. memoize it
         def find_session(id)
-          @@session_class.find_or_create_by(:id => id)
+          @sessions ||= {}
+          return @sessions[id] if @sessions[id] && !@sessions[id].frozen?
+          @sessions[id] = @@session_class.find_or_create_by(:id => id)
         end
 
         # def destroy(env)
