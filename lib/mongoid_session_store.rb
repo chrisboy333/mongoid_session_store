@@ -1,3 +1,4 @@
+require 'mongoid_session_store/version'
 require 'rails'
 
 module MongoidSessionStore
